@@ -79,7 +79,7 @@ public class GripperSubsystem extends SubsystemBase {
 
     //set softLimits cone
     armGripMotor.setSoftLimit(SoftLimitDirection.kForward, GripConstants.kGripperConeMin); // 260.0f); //minimum val for cube to be squished old: 125.0
-    armGripMotor.setSoftLimit(SoftLimitDirection.kReverse, -85.0f); // max val for gripper to  be extended old: -85.0
+   // armGripMotor.setSoftLimit(SoftLimitDirection.kReverse, -85.0f); // max val for gripper to  be extended old: -85.0
     
     enableGripperSoftLimits();
 

@@ -101,7 +101,7 @@ public final class Constants {
   public static class ArmConstants{
     public static final int kArmLiftID = 5;
     // test speeds of all arm motors
-    public static final double kArmSpeed = 0.2;
+    public static final double kArmSpeed = 0.4;
     public static final double kArmEncoderTick2Degs = 360/42 * 1.0;
     public static final float kArmRotationForwardLimit = (float) (-50.54); 
     public static final float kArmRotationReverseLimit = 0.0f;
@@ -113,7 +113,7 @@ public final class Constants {
   // Arm Extender ============================================================================================================================
   public static class ArmExtenderConstants{
     public static final int kArmExtenderID = 10;
-    public static final double kExtenderSpeed = 1.0;
+    public static final double kExtenderSpeed = 0.8;
 
     public static final float kArmExtenderLimitMin = 0.0f;
     public static final float kArmExtenderLimitMax = -50.0f;
