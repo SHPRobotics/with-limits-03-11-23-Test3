@@ -69,5 +69,9 @@ public class ArmExtenderSubsystem extends SubsystemBase {
   public CommandBase armExtenderInMax(){
     return runOnce( ()-> m_armExtenderEncoder.setPosition(ArmExtenderConstants.kArmExtenderLimitMin));
   }
+  
+  public Double getPosition(){
+    return m_armExtenderEncoder.getPosition();
+  }
 
 } // public class ArmExtenderSubsystem

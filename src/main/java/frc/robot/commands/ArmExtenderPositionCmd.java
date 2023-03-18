@@ -5,16 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.AutoConstants;
-import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.Constants.ArmExtenderConstants;
+import frc.robot.subsystems.ArmExtenderSubsystem;
 
-public class ArmPositionCmd extends CommandBase {
-  public final ArmSubsystem m_subsystem;
+public class ArmExtenderPositionCmd extends CommandBase {
+  public final ArmExtenderSubsystem m_subsystem;
   public final Double m_position;
 
-  /** Creates a new ArmPositionCmd. */
-  public ArmPositionCmd(ArmSubsystem subsystem, double position) {
-    
+  /** Creates a new ArmExtenderPositionCmd. */
+  public ArmExtenderPositionCmd(ArmExtenderSubsystem subsystem, Double position) {
     m_subsystem = subsystem;
     m_position = position;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -29,9 +28,9 @@ public class ArmPositionCmd extends CommandBase {
   @Override
   public void execute() {
     if (m_position > m_subsystem.getPosition())
-      m_subsystem.setMotor(-AutoConstants.kAutoArmSpeed); //move arm up
+      m_subsystem.setMotor(-ArmExtenderConstants.kExtenderSpeed); //Move arm out when input position is greater than enconder position
     else if (m_position < m_subsystem.getPosition())
-      m_subsystem.setMotor(AutoConstants.kAutoArmSpeed); //move arm down
+      m_subsystem.setMotor(ArmExtenderConstants.kExtenderSpeed); //Move arm in when inpurt position is less than enconder position
     else
       m_subsystem.setMotor(0);
   }
@@ -45,7 +44,6 @@ public class ArmPositionCmd extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_subsystem.getPosition() == m_position; //returns true when the encoder position is equal to the input position
-
+    return m_subsystem.getPosition() == m_position; //returns true when extender position is equal to the input position
   }
 }
