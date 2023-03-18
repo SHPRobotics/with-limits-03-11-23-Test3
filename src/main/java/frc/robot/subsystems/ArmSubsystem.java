@@ -69,4 +69,8 @@ public class ArmSubsystem extends SubsystemBase {
   public CommandBase armDownMax(){
     return runOnce( ()-> m_armEncoder.setPosition(ArmConstants.kArmLimitMin));
   }
+  
+  public Double getPosition(){
+    return m_armEncoder.getPosition();
+  }
 }

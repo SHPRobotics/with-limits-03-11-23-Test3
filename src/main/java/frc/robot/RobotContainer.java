@@ -57,10 +57,9 @@ public class RobotContainer {
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandJoystick m_JoyLeft =
-      new CommandJoystick(OperatorConstants.kLeftJoystickPort);
-  private final CommandJoystick m_JoyRight =
-      new CommandJoystick(OperatorConstants.kRightJoystickPort);
+  private final CommandJoystick m_JoyLeft = new CommandJoystick(OperatorConstants.kLeftJoystickPort);
+  private final CommandJoystick m_JoyRight = new CommandJoystick(OperatorConstants.kRightJoystickPort);
+  private final CommandXboxController m_xboxController = new CommandXboxController(OperatorConstants.kXboxControllerPort);
 
       //private final CommandJoystick m_GamePad = 
   //    new CommandJoystick(OperatorConstants.kGamePadPort);
@@ -70,7 +69,7 @@ public class RobotContainer {
 private final Joystick m_leftJoystick = new Joystick(0);
 private final Joystick m_rightJoystick = new Joystick(1);
 private final Joystick m_gamePad = new Joystick(2);
-private final CommandXboxController m_xboxController = new CommandXboxController(3);
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -140,8 +139,16 @@ private final CommandXboxController m_xboxController = new CommandXboxController
     //new JoystickButton(m_leftJoystick, 1)
     //  .onTrue(new InstantCommand(()-> m_DriveSubsystem.resetGyro()));
 
+   // m_JoyLeft.button(1)
+   //   .onTrue(new InstantCommand(()-> m_DriveSubsystem.resetGyro()));
+
+   //Button 1 on Left Joystick to strafe left
     m_JoyLeft.button(1)
-      .onTrue(new InstantCommand(()-> m_DriveSubsystem.resetGyro()));
+        .whileTrue(new InstantCommand(()-> m_DriveSubsystem.drive(0, -.5, 0)));
+   //Button 1 on right joystick to strafe right
+    m_JoyRight.button(1)
+        .whileTrue(new InstantCommand(()-> m_DriveSubsystem.drive(0, .5, 0)));
+        
 /*
     new JoystickButton(m_leftJoystick, 2)
       .onTrue(new DriveDistanceCmd(Units.feetToMeters(5.0), m_DriveSubsystem));
@@ -150,10 +157,11 @@ private final CommandXboxController m_xboxController = new CommandXboxController
       .onTrue(new DriveDistanceCmd(Units.feetToMeters(-5.0), m_DriveSubsystem));
 */
 
-      new JoystickButton(m_rightJoystick, 1)
+/*      new JoystickButton(m_rightJoystick, 1)
       .onTrue(new InstantCommand(()-> m_ArmSubsystem.resetArmEncoder()));
       new JoystickButton(m_rightJoystick, 2)
       .onTrue(new InstantCommand(()-> m_ArmSubsystem.disableArmSoftLimit()));
+ */
       new JoystickButton(m_rightJoystick, 3)
       .onTrue(new InstantCommand(()-> m_ArmSubsystem.enableArmSoftLimit()));
 

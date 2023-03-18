@@ -24,7 +24,7 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kLeftJoystickPort = 0;
     public static final int  kRightJoystickPort =1;
-    public static final int kXboxControllerPort = 2;
+    public static final int kXboxControllerPort = 3;
     public static final double kDeadband = 0.05;
 
     public static final int kOffBalanceAngleThresholdDegrees = 3;
@@ -174,5 +174,8 @@ public final class Constants {
 
     public static final double kAutoDriveSpeed = 0.5;
     public static final double kAutoBackupDistanceMeters = Units.inchesToMeters(142.88);
+
+    public static final double kAutoArmSpeed = 0.3;
+    public static final double kAutoArmExtenderSpeed = 0.3;
   }
 }
