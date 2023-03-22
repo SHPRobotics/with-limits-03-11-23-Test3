@@ -29,9 +29,9 @@ public class ArmPositionCmd extends CommandBase {
   @Override
   public void execute() {
     if (m_position > m_subsystem.getPosition())
-      m_subsystem.setMotor(-AutoConstants.kAutoArmSpeed); //move arm up
+      m_subsystem.setMotor(AutoConstants.kAutoArmSpeed); //move arm up
     else if (m_position < m_subsystem.getPosition())
-      m_subsystem.setMotor(AutoConstants.kAutoArmSpeed); //move arm down
+      m_subsystem.setMotor(-AutoConstants.kAutoArmSpeed); //move arm down
     else
       m_subsystem.setMotor(0);
   }

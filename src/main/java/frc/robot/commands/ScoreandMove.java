@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.ArmExtenderSubsystem;
@@ -20,10 +21,16 @@ public class ScoreandMove extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-     
-
-      new InstantCommand(() -> drive.resetEncoders()),
-      new DriveDistanceCmd(1.5, drive)
+      new ArmUpMax(arm),
+      new ArmExtenderOutMax(extend),
+      new DriveDistanceCmd(0.1, drive),
+      new ReleaseConeCmd(grip),
+      new GrabCubeCmd(grip),
+      new ArmExtenderInMax(extend),
+      new DriveDistanceCmd(-0.1, drive),
+      new ArmDownMax(arm),
+      new DriveDistanceCmd(-2.5, drive) // 2.5 is actually 3.5m unkown why wrong.
+      
     );
   }
 }

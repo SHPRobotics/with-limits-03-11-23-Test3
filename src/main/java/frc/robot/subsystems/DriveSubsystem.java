@@ -134,7 +134,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void displayDashboard(){
 
-    SmartDashboard.putNumber("Avg. Distance Ft", Units.metersToFeet(getAverageEncoderDistance()) );
+    SmartDashboard.putNumber("Avg. Distance (m)", getAverageEncoderDistance());
 
     SmartDashboard.putNumber("gyro angle Deg", getGyro().getAngle());
     SmartDashboard.putNumber("getHeading Deg", getHeading());

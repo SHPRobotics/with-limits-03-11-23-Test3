@@ -9,6 +9,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.GripConstants;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.ArmPositionCmd;
 import frc.robot.commands.Autos;
 import frc.robot.commands.BalanceOnBeamCmd;
 import frc.robot.commands.MecanumDriveCmd;
@@ -143,11 +144,11 @@ private final Joystick m_gamePad = new Joystick(2);
    //   .onTrue(new InstantCommand(()-> m_DriveSubsystem.resetGyro()));
 
    //Button 1 on Left Joystick to strafe left
-    m_JoyLeft.button(1)
-        .whileTrue(new InstantCommand(()-> m_DriveSubsystem.drive(0, -.5, 0)));
+  //  m_JoyLeft.button(1)
+  //      .onTrue(new MecanumDriveCmd(m_DriveSubsystem, ()->0.0, ()->-0.5,()-> 0.0));
    //Button 1 on right joystick to strafe right
-    m_JoyRight.button(1)
-        .whileTrue(new InstantCommand(()-> m_DriveSubsystem.drive(0, .5, 0)));
+  //  m_JoyRight.button(1)
+  //      .onTrue(new MecanumDriveCmd(m_DriveSubsystem, ()->0.0, ()->0.5,()-> 0.0));
         
 /*
     new JoystickButton(m_leftJoystick, 2)
@@ -259,6 +260,10 @@ private final Joystick m_gamePad = new Joystick(2);
     //xboxcontroller: hold right bumper to grab the cube
     m_xboxController.rightBumper()
       .onTrue(new InstantCommand(()-> m_GripperSubsystem.grabCube()))
+      .onFalse(new InstantCommand(()-> m_GripperSubsystem.setMotor(0)));
+
+    m_xboxController.b()
+      .onTrue(new ArmPositionCmd(m_ArmSubsystem, -25))
       .onFalse(new InstantCommand(()-> m_GripperSubsystem.setMotor(0)));
       
 }

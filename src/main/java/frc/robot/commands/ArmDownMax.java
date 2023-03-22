@@ -5,16 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.GripConstants;
-import frc.robot.subsystems.GripperSubsystem;
+import frc.robot.Constants.ArmConstants;
+import frc.robot.subsystems.ArmSubsystem;
 
-public class ReleaseCone extends CommandBase {
-  GripperSubsystem m_subsystem;
+public class ArmDownMax extends CommandBase {
+  ArmSubsystem m_subsystem;
 
-  /** Creates a new ReleaseCone. */
-  public ReleaseCone(GripperSubsystem subsystem) {
+  /** Creates a new ArmDownMax. */
+  public ArmDownMax(ArmSubsystem subsystem) {
     m_subsystem = subsystem;
-
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -22,20 +21,23 @@ public class ReleaseCone extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_subsystem.setMotor(GripConstants.kGripperLimitMax);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_subsystem.setMotor(ArmConstants.kArmSpeed);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_subsystem.setMotor(0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (Math.abs(m_subsystem.getArmEncoder().getPosition()) <= Math.abs(ArmConstants.kArmLimitMin + 1.0));
   }
 }

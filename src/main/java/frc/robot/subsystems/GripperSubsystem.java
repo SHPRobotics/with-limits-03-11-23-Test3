@@ -120,4 +120,9 @@ public class GripperSubsystem extends SubsystemBase {
   public RelativeEncoder getGripperEncoder(){
     return m_gripEncoder;
   }
+
+  public DigitalInput getLimitSwitchOpen(){
+    return m_limitSwitchOpen;
+  }
+  
 } // End of public class GripperSubsystem

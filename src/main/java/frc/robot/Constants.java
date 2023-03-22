@@ -128,7 +128,7 @@ public final class Constants {
 
     public static final float kGripperLimitMin = 116.0f; //150.0f;
     public static final float kGripperConeMin = 215.0f; //200f;
-    public static final float kGripperLimitMax = 50.0f;
+    public static final float kGripperLimitMax = 100.0f; // was 50
 
   }
 

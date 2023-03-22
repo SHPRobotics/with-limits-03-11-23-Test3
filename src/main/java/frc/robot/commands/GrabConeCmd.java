@@ -22,21 +22,25 @@ public class GrabConeCmd extends CommandBase {
   @Override
   public void initialize() {
     if (!m_subsystem.isSetLimitsCone) m_subsystem.setSoftLimitsCone();
-    m_subsystem.setMotor(GripConstants.kGripSpeed);
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_subsystem.setMotor(GripConstants.kGripSpeed);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_subsystem.setMotor(0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return Math.abs(m_subsystem.getGripperEncoder().getPosition()) >= Math.abs(GripConstants.kGripperConeMin);
   }
 
 }
