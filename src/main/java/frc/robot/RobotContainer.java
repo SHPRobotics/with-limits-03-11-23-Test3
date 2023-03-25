@@ -7,14 +7,15 @@ package frc.robot;
 import frc.robot.Constants.ArmExtenderConstants;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.GripConstants;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.ArmExtenderOutMax;
 import frc.robot.commands.ArmPositionCmd;
-import frc.robot.commands.Autos;
+import frc.robot.commands.ArmUpMax;
 import frc.robot.commands.BalanceOnBeamCmd;
 import frc.robot.commands.MecanumDriveCmd;
 import frc.robot.commands.MoveArmCmd;
 import frc.robot.commands.MoveArmExtenderCmd;
+import frc.robot.commands.ScoreandBalance;
 import frc.robot.commands.ScoreandMove;
 import frc.robot.subsystems.ArmExtenderSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
@@ -54,6 +55,10 @@ public class RobotContainer {
   private final ArmSubsystem m_ArmSubsystem = new ArmSubsystem();
   private final GripperSubsystem m_GripperSubsystem = new GripperSubsystem();
 
+  // The autonomous commands
+  private final Command m_scoreandMove= new ScoreandMove(m_DriveSubsystem, m_ArmExtenderSubsystem, m_ArmSubsystem, m_GripperSubsystem);
+  private final Command m_scoreandBlance = new ScoreandBalance(m_DriveSubsystem, m_ArmExtenderSubsystem, m_ArmSubsystem, m_GripperSubsystem);
+
   // A chooser for autonomous commands
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -92,8 +97,10 @@ private final Joystick m_gamePad = new Joystick(2);
       new MoveArmCmd(m_ArmSubsystem, ()-> m_xboxController.getLeftY() * Constants.ArmConstants.kArmSpeed)
     );
     // Add commands to the autonomous command chooser
-    m_chooser.setDefaultOption("straight", loadPathplannerTrajectory("deploy/deploy/pathplanner/generatedJSON/straight.wpilib.json", true));
-    m_chooser.addOption("curvy", loadPathplannerTrajectory("deploy/deploy/pathplanner/generatedJSON/curvy.wpilib.json", true));
+    //m_chooser.setDefaultOption("straight", loadPathplannerTrajectory("deploy/deploy/pathplanner/generatedJSON/straight.wpilib.json", true));
+    //m_chooser.addOption("curvy", loadPathplannerTrajectory("deploy/deploy/pathplanner/generatedJSON/curvy.wpilib.json", true));
+    m_chooser.setDefaultOption(("Score and Move"), m_scoreandMove);
+    m_chooser.addOption("Score and Balance", m_scoreandBlance);
 
     // Put the chooser on the dashboard
     Shuffleboard.getTab("Autonomous").add(m_chooser);
@@ -262,10 +269,17 @@ private final Joystick m_gamePad = new Joystick(2);
       .onTrue(new InstantCommand(()-> m_GripperSubsystem.grabCube()))
       .onFalse(new InstantCommand(()-> m_GripperSubsystem.setMotor(0)));
 
+    //xboxcontroller: hold b to lift arm to human position and mid level scoring
     m_xboxController.b()
-      .onTrue(new ArmPositionCmd(m_ArmSubsystem, -25))
+      .onTrue(new ArmPositionCmd(m_ArmSubsystem, 45))
       .onFalse(new InstantCommand(()-> m_GripperSubsystem.setMotor(0)));
-      
+    
+    //xboxcontroller: hold y to lift arm and extender to max position at the same time
+    m_xboxController.y()
+      .onTrue(new ArmUpMax(m_ArmSubsystem))
+      .onTrue(new ArmExtenderOutMax(m_ArmExtenderSubsystem))
+      .onFalse(new InstantCommand(()-> m_ArmSubsystem.setMotor(0)))
+      .onFalse(new InstantCommand(()-> m_ArmExtenderSubsystem.setMotor(0)));
 }
   
 
@@ -283,7 +297,9 @@ private final Joystick m_gamePad = new Joystick(2);
 
      //return m_chooser.getSelected();
     //  return Autos.exampleAuto(m_DriveSubsystem, m_ArmSubsystem, m_ArmExtenderSubsystem, m_GripperSubsystem);
-    return new ScoreandMove(m_DriveSubsystem, m_ArmExtenderSubsystem, m_ArmSubsystem, m_GripperSubsystem);
+    //return new ScoreandMove(m_DriveSubsystem, m_ArmExtenderSubsystem, m_ArmSubsystem, m_GripperSubsystem);
+    //return new ScoreandBalance(m_DriveSubsystem, m_ArmExtenderSubsystem, m_ArmSubsystem, m_GripperSubsystem);
+    return m_chooser.getSelected();
   }
 
 

@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.DriveSubsystem;
@@ -38,7 +39,9 @@ private static int attempt;
     error = -AutoConstants.BEAM_BALANCED_GOAL_DEGREES + currentAngle;
 //    drivePower = -Math.min(Constants.BEAM_BALANACED_DRIVE_KP * error, 1);
 //    drivePower = Constants.BEAM_BALANACED_DRIVE_KP * error;
-    drivePower = .008 * error;
+    drivePower = .0115 * error; //.03 //.008 //0115
+    SmartDashboard.putNumber("drivePower", drivePower);
+    
 attempt++;
 System.out.print("Run # "+ attempt +
                 ", sensor: " + currentAngle +
@@ -63,6 +66,10 @@ System.out.print(", no-max power: "+ drivePower);
 System.out.println();
 
     m_DriveSubsystem.drive(drivePower, 0,0);
+
+    if(Math.abs(error) < AutoConstants.BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES){
+      m_DriveSubsystem.drive(0, 0,0);
+    } // End the command when we are within the specified threshold of being 'flat' (gyroscope pitch of 0 degrees))
   }
 
   // Called once the command ends or is interrupted.
@@ -74,6 +81,7 @@ System.out.println();
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(error) < AutoConstants.BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES; // End the command when we are within the specified threshold of being 'flat' (gyroscope pitch of 0 degrees)
+    //return Math.abs(error) < AutoConstants.BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES; // End the command when we are within the specified threshold of being 'flat' (gyroscope pitch of 0 degrees)
+    return false;
   }
 }

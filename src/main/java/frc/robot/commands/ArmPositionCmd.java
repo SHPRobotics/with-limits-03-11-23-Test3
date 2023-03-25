@@ -28,10 +28,10 @@ public class ArmPositionCmd extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_position > m_subsystem.getPosition())
-      m_subsystem.setMotor(AutoConstants.kAutoArmSpeed); //move arm up
-    else if (m_position < m_subsystem.getPosition())
-      m_subsystem.setMotor(-AutoConstants.kAutoArmSpeed); //move arm down
+    if (Math.abs(m_position) > Math.abs(m_subsystem.getPosition()))
+      m_subsystem.setMotor(-AutoConstants.kAutoArmSpeed); //move arm up
+    else if (Math.abs(m_position) < Math.abs(m_subsystem.getPosition()))
+      m_subsystem.setMotor(AutoConstants.kAutoArmSpeed); //move arm down
     else
       m_subsystem.setMotor(0);
   }
@@ -45,7 +45,14 @@ public class ArmPositionCmd extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_subsystem.getPosition() == m_position; //returns true when the encoder position is equal to the input position
+    
+    boolean atPos;
+    if (Math.abs(m_subsystem.getPosition()) >= (Math.abs(m_position)-1) && Math.abs(m_subsystem.getPosition()) <= (Math.abs(m_position)+1))
+    atPos = true;
+    else
+      atPos = false;
+
+    return atPos; //returns true when the encoder position is equal to the input position
 
   }
 }

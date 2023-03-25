@@ -116,7 +116,7 @@ public final class Constants {
     public static final double kExtenderSpeed = 0.8;
 
     public static final float kArmExtenderLimitMin = 0.0f;
-    public static final float kArmExtenderLimitMax = -50.0f;
+    public static final float kArmExtenderLimitMax = -52.0f;
 
   }
 
@@ -168,7 +168,7 @@ public final class Constants {
             kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
 
     public static final double BEAM_BALANCED_GOAL_DEGREES = 0;
-    public static final double BACKWARDS_BALANCING_EXTRA_POWER_MULTIPLIER = 1.35;
+    public static final double BACKWARDS_BALANCING_EXTRA_POWER_MULTIPLIER = 1.35; //1.35;
     public static final double BEAM_BALANACED_DRIVE_KP = 0.01; //0.015;
     public static final double BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES = 1;
 

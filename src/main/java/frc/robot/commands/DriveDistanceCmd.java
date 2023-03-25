@@ -10,12 +10,14 @@ import frc.robot.subsystems.DriveSubsystem;
 
 public class DriveDistanceCmd extends CommandBase {
   private final double m_distanceMeters;
+  private final double m_speedCorrection;
   private final DriveSubsystem m_subsystem;
 
   /** Creates a new DriveDistance. */
-  public DriveDistanceCmd(double distanceMeters, DriveSubsystem subsystem) {
+  public DriveDistanceCmd(double distanceMeters, DriveSubsystem subsystem, double speedCorrection) {
     m_distanceMeters = distanceMeters;
     m_subsystem = subsystem;
+    m_speedCorrection = speedCorrection;
   
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -31,9 +33,9 @@ public class DriveDistanceCmd extends CommandBase {
   @Override
   public void execute() {
     if(m_distanceMeters >0)
-      m_subsystem.drive(AutoConstants.kautoSpeed, 0, 0);  // drive forward
+      m_subsystem.drive(AutoConstants.kautoSpeed * m_speedCorrection, 0, 0);  // drive forward
     else
-      m_subsystem.drive(-AutoConstants.kautoSpeed, 0, 0); // drive reverse
+      m_subsystem.drive(-AutoConstants.kautoSpeed * m_speedCorrection, 0, 0); // drive reverse
 
   }
 

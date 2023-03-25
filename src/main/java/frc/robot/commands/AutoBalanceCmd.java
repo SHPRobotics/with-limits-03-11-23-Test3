@@ -86,7 +86,7 @@ System.out.println("xAxisRate = "+xAxisRate+", yAxisRate = "+ yAxisRate+", rotAx
     // now drive in reverse direction
     try {
 //      m_subsystem.drive(xAxisRate, yAxisRate, rotAxisRate, new Rotation2d());
-      m_subsystem.drive(xAxisRate, 0, 0, new Rotation2d());
+      m_subsystem.drive(xAxisRate, yAxisRate, 0, new Rotation2d());
     } 
     catch (RuntimeException ex) {
       String err_string = "Drive system error:  " + ex.getMessage();
